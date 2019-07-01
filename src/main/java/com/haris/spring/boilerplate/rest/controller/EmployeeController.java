@@ -1,38 +1,35 @@
 package com.haris.spring.boilerplate.rest.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.haris.spring.boilerplate.rest.model.Employee;
-import com.haris.spring.boilerplate.rest.repository.EmployeeRepository;
+import com.haris.spring.boilerplate.rest.service.EmployeeService;
+import gherkin.deps.com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            value = "/employees",
-            produces = "application/json")
-    @ResponseBody
+    @GetMapping("/list")
     public List<Employee> employees() {
-        return employeeRepository.findAll();
+        return employeeService.getEmployees();
     }
 
-    @RequestMapping(
-            method = RequestMethod.POST,
-            value = "/employee",
-            produces = "application/json")
-    @ResponseBody
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeRepository.save(employee);
-        System.out.println("Employee saved: " + employee.getName() + "with ID: " + employee.getRegistrationNumber());
-        employeeRepository.findById(employee.getRegistrationNumber());
-    }
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addEmployee(@RequestBody Employee employee) {
+        employeeService.createEmployee(employee);
+        return new ResponseEntity<>(new Gson().toJson("Product is created successfully"), HttpStatus.CREATED);
 
+    }
 
 }
