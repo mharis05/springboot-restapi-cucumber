@@ -1,24 +1,56 @@
 package com.haris.spring.boilerplate.rest.model;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
 public class Store {
-    public String getStoreCode() {
-        return storeCode;
+
+    public Store(Integer code, String name, List<Employee> employees, List<Product> products) {
+        this.code = code;
+        this.name = name;
+        this.employees = employees;
+        this.products = products;
     }
 
-    public void setStoreCode(String storeCode) {
-        this.storeCode = storeCode;
+    public Store() {
+
     }
 
-    public String getStoreName() {
-        return storeName;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer code;
+
+    @OneToMany(targetEntity=Employee.class)
+    private List<Employee> employees;
+
+    @OneToMany(targetEntity=Product.class)
+    private List<Product> products;
+
+    private String name;
+
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    private String storeCode;
-    private String storeName;
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

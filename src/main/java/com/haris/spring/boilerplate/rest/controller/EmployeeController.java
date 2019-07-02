@@ -25,10 +25,15 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
+    @GetMapping("{code}")
+    public Employee getEmployee(@PathVariable("code") Integer code) {
+        return employeeService.getEmployee(code);
+    }
+
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> addEmployee(@RequestBody Employee employee) {
         employeeService.createEmployee(employee);
-        return new ResponseEntity<>(new Gson().toJson("Product is created successfully"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new Gson().toJson("Employee created successfully"), HttpStatus.CREATED);
 
     }
 

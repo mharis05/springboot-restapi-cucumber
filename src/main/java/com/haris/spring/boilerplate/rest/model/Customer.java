@@ -1,35 +1,43 @@
 package com.haris.spring.boilerplate.rest.model;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Component
+@Entity
 public class Customer {
 
-    private String customerNumber;
-    private String customerName;
-    private Integer customerAge;
-
-    public String getCustomerNumber() {
-        return customerNumber;
+    public Customer() {
     }
 
-    public void setCustomerNumber(String customerNumber) {
-        this.customerNumber = customerNumber;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer code;
+    private String name;
+    private Integer age;
+
+    public Integer getCode() {
+        return code;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public String getName() {
+        return name;
     }
 
-    public Integer getCustomerAge() {
-        return customerAge;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCustomerAge(Integer customerAge) {
-        this.customerAge = customerAge;
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

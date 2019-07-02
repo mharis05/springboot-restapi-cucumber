@@ -17,12 +17,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void createEmployee(Employee employee) {
         employeeRepository.save(employee);
-        System.out.println("Employee saved: " + employee.getName() + "with ID: " + employee.getRegistrationNumber());
-        employeeRepository.findById(employee.getRegistrationNumber());
+        System.out.println("Employee saved: " + employee.getName() + " with ID: " + employee.getCode());
+        employeeRepository.findById(employee.getCode());
     }
 
     @Override
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public Employee getEmployee(Integer code) {
+        return employeeRepository.findByCode(code);
     }
 }

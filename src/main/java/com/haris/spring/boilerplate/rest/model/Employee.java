@@ -1,10 +1,6 @@
 package com.haris.spring.boilerplate.rest.model;
-import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
@@ -12,7 +8,11 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer registrationNumber;
+    private Integer code;
+
+    @ManyToOne
+    @JoinColumn
+    private Store store;
 
     public Employee() {
     }
@@ -20,10 +20,10 @@ public class Employee {
     private String name;
     private Integer age;
 
-    public Employee(String name, Integer age, Integer registrationNumber) {
+    public Employee(String name, Integer age, Integer code) {
         this.name = name;
         this.age = age;
-        this.registrationNumber = registrationNumber;
+        this.code = code;
     }
 
     public String getName() {
@@ -42,11 +42,11 @@ public class Employee {
         this.age = age;
     }
 
-    public void setRegistrationNumber(Integer registrationNumber) {
-        this.registrationNumber = registrationNumber;
+    public void setcode(Integer code) {
+        this.code = code;
     }
 
-    public Integer getRegistrationNumber() {
-        return registrationNumber;
+    public Integer getCode() {
+        return code;
     }
 }

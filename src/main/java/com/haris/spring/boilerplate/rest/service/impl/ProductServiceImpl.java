@@ -1,4 +1,6 @@
 package com.haris.spring.boilerplate.rest.service.impl;
 
-public class ProductServiceImpl {
+import com.haris.spring.boilerplate.rest.service.ProductService;
+
+public class ProductServiceImpl implements ProductService {
 }

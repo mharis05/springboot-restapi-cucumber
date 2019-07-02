@@ -1,35 +1,72 @@
 package com.haris.spring.boilerplate.rest.model;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
 
+@Entity
 public class Product {
 
-    private String productName;
-    private String productCode;
-
-    public String getProductName() {
-        return productName;
+    public Product() {
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public Product(String name, Integer code, Double price, Integer quantity) {
+        this.name = name;
+        this.code = code;
+        this.price = price;
+        this.quantity = quantity;
     }
 
-    public String getProductCode() {
-        return productCode;
+    private String name;
+    private Integer quantity;
+
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer code;
+
+    @ManyToOne
+    @JoinColumn(name="storeCode")
+    private Store store;
+
+
+    public Store getStore() {
+        return store;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setStore(Store store) {
+        this.store = store;
     }
 
-    public Integer getProductQuantity() {
-        return productQuantity;
+    private Double price;
+
+    public Double getPrice() {
+        return price;
     }
 
-    public void setProductQuantity(Integer productQuantity) {
-        this.productQuantity = productQuantity;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    private Integer productQuantity;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 }
