@@ -37,4 +37,10 @@ public class EmployeeController {
 
     }
 
+    @DeleteMapping("{code}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("code") Integer code) {
+        return employeeService.deleteEmployee(code);
+        //return new ResponseEntity<String>(new Gson().toJson("Employee deleted successfully"), HttpStatus.OK);
+    }
+
 }

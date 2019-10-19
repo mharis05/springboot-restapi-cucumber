@@ -3,7 +3,11 @@ package com.haris.spring.boilerplate.rest.service.impl;
 import com.haris.spring.boilerplate.rest.model.Employee;
 import com.haris.spring.boilerplate.rest.repository.EmployeeRepository;
 import com.haris.spring.boilerplate.rest.service.EmployeeService;
+import gherkin.deps.com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +33,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee getEmployee(Integer code) {
         return employeeRepository.findByCode(code);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteEmployee(Integer code) {
+        try {
+            employeeRepository.deleteById(code);
+        } catch (DataAccessException dae) {
+            return ResponseEntity.status( HttpStatus.NOT_FOUND).body(new Gson().toJson("Employee does not exist with the provided Identifier."));
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
