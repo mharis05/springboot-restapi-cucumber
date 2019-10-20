@@ -34,13 +34,11 @@ public class EmployeeController {
     public ResponseEntity<Object> addEmployee(@RequestBody Employee employee) {
         employeeService.createEmployee(employee);
         return new ResponseEntity<>(new Gson().toJson("Employee created successfully"), HttpStatus.CREATED);
-
     }
 
     @DeleteMapping("{code}")
     public ResponseEntity<String> deleteEmployee(@PathVariable("code") Integer code) {
         return employeeService.deleteEmployee(code);
-        //return new ResponseEntity<String>(new Gson().toJson("Employee deleted successfully"), HttpStatus.OK);
     }
 
 }

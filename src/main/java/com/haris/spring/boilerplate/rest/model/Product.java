@@ -1,6 +1,7 @@
 package com.haris.spring.boilerplate.rest.model;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Product {
@@ -15,12 +16,15 @@ public class Product {
         this.quantity = quantity;
     }
 
+    @NotEmpty(message = "Please provide a Product name.")
     private String name;
+    @NotNull(message = "Please provide a quantity.")
     private Integer quantity;
-
+    @NotNull(message = "Please provide a price.")
+    private Double price;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer code;
 
     @ManyToOne
@@ -35,8 +39,6 @@ public class Product {
     public void setStore(Store store) {
         this.store = store;
     }
-
-    private Double price;
 
     public Double getPrice() {
         return price;
