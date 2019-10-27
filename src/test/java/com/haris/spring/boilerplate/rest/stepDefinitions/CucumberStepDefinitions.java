@@ -1,5 +1,7 @@
 package com.haris.spring.boilerplate.rest.stepDefinitions;
 
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,8 +13,6 @@ public abstract class CucumberStepDefinitions {
     @Value("${test.baseUri}")
     protected String baseUri;
 
-    @Value(("${server.port}"))
-    protected String serverPort;
-
-//    protected String URL = baseUri + ":" + serverPort + "/";
+    @Value("${server.port}")
+    protected Integer serverPort;
 }
