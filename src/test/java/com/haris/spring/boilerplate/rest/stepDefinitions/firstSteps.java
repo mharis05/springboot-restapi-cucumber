@@ -1,6 +1,7 @@
 package com.haris.spring.boilerplate.rest.stepDefinitions;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.RestAssured;
@@ -14,21 +15,10 @@ public class firstSteps extends CucumberStepDefinitions{
     private RequestSpecification request = RestAssured.with();
     private Response response;
 
-
     @Value("${thisValue}")
     private String value;
 
-    @Value("${server.port}")
-    private String serverPort;
-
-
-    @When("^the client calls /version$")
-    public void the_client_calls_version() {
-        System.out.println("This step was executed and found value: " + value);
-        response = request.when().get("http://localhost:" + serverPort + "/employees");
-        System.out.println(response.asString());
-    }
-
+    private String baseUri;
 
     @Then("^the client receives status code of (\\d+)$")
     public void the_client_receives_status_code_of(int arg1) {
@@ -42,4 +32,10 @@ public class firstSteps extends CucumberStepDefinitions{
         throw new PendingException();
     }
 
+    @Given("^\"([^\"]*)\" endpoint is running$")
+    public void endpointIsRunning(String endpoint) throws Throwable {
+        System.out.println("This step was executed and found value: " + value);
+        baseUri = serverPort + endpoint + "/";
+        System.out.println(response.asString());
+    }
 }
